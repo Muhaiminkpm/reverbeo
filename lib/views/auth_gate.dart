@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reverbeo/view_models/auth_view_model.dart';
-import 'package:reverbeo/views/login_page.dart';
+import 'package:reverbeo/views/sign_in_page.dart';
 import 'package:reverbeo/views/main_screen.dart';
 
 class AuthGate extends StatelessWidget {
@@ -20,7 +20,7 @@ class AuthGate extends StatelessWidget {
         if (snapshot.hasData && authViewModel.currentUser != null) {
           return const MainScreen();
         } else {
-          return const LoginPage();
+          return const SignInPage();
         }
       },
     );

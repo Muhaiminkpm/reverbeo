@@ -12,11 +12,11 @@ class AuthViewModel extends ChangeNotifier {
 
   Stream<AuthState> get authStateChanges => _authService.authStateChanges;
 
-  Future<String?> signUp(String email, String password) async {
+  Future<String?> signUp(String email, String password, String name) async {
     _isLoading = true;
     notifyListeners();
     try {
-      await _authService.signUp(email, password);
+      await _authService.signUp(email, password, name);
       return null;
     } on AuthException catch (e) {
       return e.message;

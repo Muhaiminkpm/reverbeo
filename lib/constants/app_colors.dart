@@ -7,4 +7,6 @@ class AppColors {
   static const Color card = Colors.white;
   static const Color text = Colors.black87;
   static const Color icon = Colors.black54;
+  static const Color recordActive = Colors.redAccent;
+  static const Color delete = Colors.red;
 }

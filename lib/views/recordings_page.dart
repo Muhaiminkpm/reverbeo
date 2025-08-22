@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reverbeo/view_models/audio_view_model.dart';
+import 'package:reverbeo/views/widgets/recording_list_item.dart';
 
 class RecordingsPage extends StatefulWidget {
   const RecordingsPage({super.key});
@@ -22,33 +23,33 @@ class _RecordingsPageState extends State<RecordingsPage> {
     final audioViewModel = Provider.of<AudioViewModel>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('My Recordings')),
+      appBar: AppBar(
+        title: const Text('My Recordings'),
+        centerTitle: true,
+        elevation: 0,
+      ),
       body: audioViewModel.isLoading && audioViewModel.recordings.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(
               onRefresh: () => audioViewModel.fetchRecordings(),
               child: audioViewModel.recordings.isEmpty
-                  ? const Center(child: Text('No recordings found.'))
+                  ? const Center(
+                      child: Text(
+                        'No recordings yet.',
+                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                      ),
+                    )
                   : ListView.builder(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       itemCount: audioViewModel.recordings.length,
                       itemBuilder: (context, index) {
                         final recording = audioViewModel.recordings[index];
-                        return ListTile(
-                          leading: const Icon(Icons.music_note),
-                          title: Text('Recording ${recording.timestamp.toIso8601String()}'),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.play_arrow),
-                                onPressed: () => audioViewModel.playRecording(recording),
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.delete, color: Colors.redAccent),
-                                onPressed: () => audioViewModel.deleteRecording(recording),
-                              ),
-                            ],
-                          ),
+                        final isPlaying = audioViewModel.currentlyPlayingId == recording.id;
+                        return RecordingListItem(
+                          recording: recording,
+                          isPlaying: isPlaying,
+                          onPlay: () => audioViewModel.playRecording(recording),
+                          onDelete: () => audioViewModel.deleteRecording(recording),
                         );
                       },
                     ),
