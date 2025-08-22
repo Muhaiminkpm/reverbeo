@@ -7,8 +7,12 @@ class AuthService {
 
   User? get currentUser => _auth.currentUser;
 
-  Future<void> signUp(String email, String password) async {
-    await _auth.signUp(email: email, password: password);
+  Future<void> signUp(String email, String password, String name) async {
+    await _auth.signUp(
+      email: email,
+      password: password,
+      data: {'full_name': name},
+    );
   }
 
   Future<void> signIn(String email, String password) async {
