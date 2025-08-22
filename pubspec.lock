@@ -103,7 +103,7 @@ packages:
       path: "."
       ref: main
       resolved-ref: "837bebd4a171974f06278ba9fa942d812c9cd5e7"
-      url: "https://Muhaiminkpm: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@github.com/muhaiminkpm/biometric_auth_flutter.git"
+      url: "https://github.com/muhaiminkpm/biometric_auth_flutter.git"
     source: git
     version: "0.0.8"
   boolean_selector:
